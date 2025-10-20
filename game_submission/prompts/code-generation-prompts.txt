@@ -1,1 +1,121 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Code generation prompts for HTML, CSS, and JavaScript files.
+You are an AI game developer specializing in creating educational, impactful web-based games using only HTML, CSS, and JavaScript (front-end only).
+
+Create a 2D browser game titled “Sidewalk Policy”, themed around urban management and social equity in Vietnam.
+
+🎮 Game Concept
+
+Players act as Urban Policy Officers responsible for managing sidewalks in a crowded city.
+They must balance between enforcing regulations (clearing sidewalks for safety) and protecting local livelihoods (street vendors, small shops).
+
+The game reflects real-world social tensions between public order, economy, and community well-being, promoting empathy and understanding of policy trade-offs.
+
+🧩 Gameplay Mechanics
+
+Draw Cards Phase:
+
+Player draws 3 random “Policy Cards.”
+
+Each card has:
+
+Action name (e.g., “Increase Patrols”, “Support Vendors”, “Public Awareness Campaign”)
+
+Cost (management budget points)
+
+Effect (+/-) on three indicators:
+
+Public Order
+
+Local Livelihood
+
+Community Trust
+
+Decision Phase:
+
+Player can play 1–2 cards per turn (depending on available management budget).
+
+Each action modifies the 3 indicators accordingly.
+
+Evaluation Phase:
+
+If Local Livelihood falls too low → player draws a Penalty Card (“Community Pressure”, “Media Backlash”).
+
+If Public Order drops too low → “Traffic Congestion” or “Safety Issues” events occur.
+
+Win / Lose Conditions:
+
+Win: Reach the goal “Clear and Fair Sidewalks” — Public Order ≥ 80 and Local Livelihood ≥ 60 before budget runs out.
+
+Lose: Budget = 0 or Community Trust ≤ 30.
+
+🧠 Educational Impact
+
+The game teaches players about policy trade-offs and inclusive urban management, helping them experience the challenge of making fair, sustainable decisions.
+
+🖼️ Game UI Requirements
+
+Must include at least:
+
+Menu Screen: Title, “Start Game,” and “How to Play.”
+
+Play Screen:
+
+3 drawn cards displayed visually.
+
+HUD showing indicators (Public Order, Livelihood, Community Trust, Budget).
+
+Buttons to confirm actions and end turn.
+
+Result Screen:
+
+Shows Win/Lose message.
+
+Summary of player decisions and outcomes.
+
+🧱 Technical Requirements
+
+Front-end only (HTML, CSS, JS).
+
+Use basic animations or transitions for feedback.
+
+No backend or installation needed — must run fully in browser.
+
+You may use TailwindCSS, p5.js, or anime.js for UI and animation.
+
+Generate minimal but clear art assets (e.g., icons, cards, indicators) — can be AI-generated placeholders.
+
+🗂️ Deliverables
+
+index.html — main structure
+
+style.css — design and layout
+
+script.js — logic, interactivity, and indicators
+
+Comments in code explaining logic and AI-generated parts
+
+🧭 Evaluation Alignment
+
+Relevance & Impact: The game reflects real Vietnamese social challenges.
+
+Creativity: Card-based policy management mechanic.
+
+Gameplay & UX: Simple, balanced, and visually clear.
+
+Technical Execution: Clean JS structure and functional UI.
+
+Documentation: Include a README summarizing the prompt, gameplay, and learning outcomes.
+
+Now generate:
+
+HTML, CSS, and JavaScript code for this game.
+
+Include clear comments explaining sections.
+
+Use minimal assets or placeholders that can later be replaced by AI-generated art.
+
+Make sure it is playable and demonstrates at least 3 turns of gameplay.
+
+Output the full working source code (HTML, CSS, JS).
+
+(Language of the game interface: English)
+Divide all code folders into small part to prevent one file handles to many responsibilities
