@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidewalk Policy - Urban Management Game</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/result-images.css">
+    <link rel="stylesheet" href="css/fix-turn-number.css">
+    <link rel="stylesheet" href="css/result-fullscreen.css">
+</head>
+<body>
+<!-- Menu Screen -->
+<div id="menu-screen" class="screen active">
+    <div class="menu-container">
+        <h1 class="game-title">Sidewalk Policy</h1>
+        <p class="game-subtitle">Urban Management & Social Equity</p>
+        <div class="menu-buttons">
+            <button id="start-btn" class="btn btn-primary">Start Game</button>
+            <button id="how-to-play-btn" class="btn btn-secondary">How to Play</button>
+        </div>
+    </div>
+</div>
+
+<!-- How to Play Screen -->
+<div id="how-to-play-screen" class="screen">
+    <div class="info-container">
+        <h2>How to Play</h2>
+        <div class="info-content">
+            <p><strong>Your Role:</strong> You are an Urban Policy Officer managing sidewalks in a crowded Vietnamese city.</p>
+
+            <h3>Objective:</h3>
+            <p>Balance public order, local livelihoods, and community trust to create clear and fair sidewalks.</p>
+
+            <h3>Gameplay:</h3>
+            <ul>
+                <li><strong>Draw Phase:</strong> Each turn, draw 3 policy cards</li>
+                <li><strong>Decision Events:</strong> Sometimes face urgent situations requiring immediate choice</li>
+                <li><strong>Decision Phase:</strong> Play 1-2 cards per turn (costs budget)</li>
+                <li><strong>Budget Management:</strong> Use revenue-generating cards to maintain budget</li>
+                <li><strong>Evaluation:</strong> Watch for penalties if indicators drop too low</li>
+                <li><strong>Objective Events:</strong> Every 3 turns, external events occur (weather, economy, politics)</li>
+            </ul>
+
+            <h3>Win Conditions:</h3>
+            <p>Achieve ALL THREE indicators ≥ 100: Public Order ≥ 100 AND Local Livelihood ≥ 100 AND Community Trust ≥ 100</p>
+
+            <h3>Lose Conditions:</h3>
+            <p>Budget reaches 0 OR Community Trust ≤ 30</p>
+
+            <div class="indicators-guide">
+                <div class="indicator-item">
+                    <span class="indicator-icon">🏛️</span>
+                    <span><strong>Public Order:</strong> Safety & sidewalk clearance</span>
+                </div>
+                <div class="indicator-item">
+                    <span class="indicator-icon">🛒</span>
+                    <span><strong>Local Livelihood:</strong> Vendor income & jobs</span>
+                </div>
+                <div class="indicator-item">
+                    <span class="indicator-icon">❤️</span>
+                    <span><strong>Community Trust:</strong> Public support</span>
+                </div>
+                <div class="indicator-item">
+                    <span class="indicator-icon">💰</span>
+                    <span><strong>Budget:</strong> Management resources</span>
+                </div>
+            </div>
+        </div>
+        <button id="back-to-menu-btn" class="btn btn-primary">Back to Menu</button>
+    </div>
+</div>
+
+<!-- Play Screen -->
+<div id="play-screen" class="screen">
+    <!-- HUD: Game Stats -->
+    <div class="hud">
+        <div class="hud-left">
+            <h2>Turn <span id="turn-number">1</span></h2>
+        </div>
+        <div class="hud-right">
+            <div class="stat-bar">
+                <span class="stat-icon">🏛️</span>
+                <div class="stat-info">
+                    <span class="stat-label">Public Order</span>
+                    <div class="progress-bar">
+                        <div id="public-order-bar" class="progress-fill" style="width: 50%"></div>
+                    </div>
+                    <span id="public-order-value" class="stat-value">50</span>
+                </div>
+            </div>
+            <div class="stat-bar">
+                <span class="stat-icon">🛒</span>
+                <div class="stat-info">
+                    <span class="stat-label">Local Livelihood</span>
+                    <div class="progress-bar">
+                        <div id="livelihood-bar" class="progress-fill" style="width: 50%"></div>
+                    </div>
+                    <span id="livelihood-value" class="stat-value">50</span>
+                </div>
+            </div>
+            <div class="stat-bar">
+                <span class="stat-icon">❤️</span>
+                <div class="stat-info">
+                    <span class="stat-label">Community Trust</span>
+                    <div class="progress-bar">
+                        <div id="trust-bar" class="progress-fill" style="width: 50%"></div>
+                    </div>
+                    <span id="trust-value" class="stat-value">50</span>
+                </div>
+            </div>
+            <div class="stat-bar">
+                <span class="stat-icon">💰</span>
+                <div class="stat-info">
+                    <span class="stat-label">Budget</span>
+                    <span id="budget-value" class="stat-value-large">100</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="cards-container">
+        <h3 class="section-title">Policy Cards (Select up to 2)</h3>
+        <div id="cards-hand" class="cards-hand">
+            <!-- Cards will be dynamically generated -->
+        </div>
+    </div>
+
+    <!-- Action Section -->
+    <div class="action-section">
+        <button id="end-turn-btn" class="btn btn-primary">End Turn</button>
+        <p class="cards-played-info">Cards Played: <span id="cards-played-count">0</span> / 2</p>
+    </div>
+
+    <!-- Event Modal -->
+    <div id="event-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="event-title">Event</h3>
+            <p id="event-message"></p>
+            <button id="event-close-btn" class="btn btn-primary">Continue</button>
+        </div>
+    </div>
+</div>
+
+<!-- Result Screen -->
+<div id="result-screen" class="screen">
+    <div class="result-container">
+        <!-- Result Header -->
+        <div class="result-header">
+            <h2 id="result-title">Game Over</h2>
+            <p id="result-subtitle" class="result-subtitle"></p>
+            <p id="result-message"></p>
+        </div>
+
+        <!-- Result Body - 2 Column Layout -->
+        <div class="result-body">
+            <!-- Left Column: Image only - Larger -->
+            <div class="result-left-column">
+                <div class="result-image-container">
+                    <img id="result-image" src="" alt="Result" class="result-image">
+                </div>
+
+                <button id="view-details-btn" class="view-details-btn">📋 View Game Details</button>
+            </div>
+
+            <!-- Right Column: Achievements + High Scores side by side -->
+            <div class="result-right-column">
+                <!-- Achievements section will be inserted here by JS -->
+
+                <!-- High scores section will be inserted here by JS -->
+
+                <button id="play-again-btn" class="btn btn-primary">Play Again</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Decision Details Modal -->
+<div id="decision-details-modal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+        <h3>📊 Game Details</h3>
+
+        <!-- Final Statistics in Modal -->
+        <div class="result-stats" style="margin-bottom: 20px;">
+            <h3>Final Statistics</h3>
+            <div class="final-stat">
+                <span>🏛️ Public Order:</span>
+                <span id="final-public-order-modal">0</span>
+            </div>
+            <div class="final-stat">
+                <span>🛒 Local Livelihood:</span>
+                <span id="final-livelihood-modal">0</span>
+            </div>
+            <div class="final-stat">
+                <span>❤️ Community Trust:</span>
+                <span id="final-trust-modal">0</span>
+            </div>
+            <div class="final-stat">
+                <span>💰 Budget Remaining:</span>
+                <span id="final-budget-modal">0</span>
+            </div>
+            <div class="final-stat">
+                <span>🔄 Turns Played:</span>
+                <span id="final-turns-modal">0</span>
+            </div>
+            <div id="final-score-row-modal" class="final-stat" style="display: none; font-size: 18px; font-weight: bold; color: #FFD700;">
+                <span>🏆 Final Score:</span>
+                <span id="final-score-modal">0</span>
+            </div>
+        </div>
+
+        <!-- Decision Summary -->
+        <h3 style="margin-top: 20px;">📋 Decision Summary</h3>
+        <div id="decisions-list-modal"></div>
+
+        <button id="close-details-btn" class="btn btn-primary" style="margin-top: 20px;">Close</button>
+    </div>
+</div>
+
+<!-- JavaScript Modules -->
+<script src="js/config.js"></script>
+<script src="js/gameState.js"></script>
+<script src="js/cards.js"></script>
+<script src="js/indicators.js"></script>
+<script src="js/events.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/gameLogic.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

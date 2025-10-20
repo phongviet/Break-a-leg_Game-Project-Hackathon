@@ -1,0 +1,54 @@
+/**
+ * result-images.css - Result Image Styling
+ * Specific styles for result images based on game outcome
+ */
+
+/* Result image animations */
+@keyframes imageReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.result-image {
+    animation: imageReveal 0.6s ease;
+}
+
+/* Image specific effects based on outcome */
+#result-image[src*="megacity"] {
+    filter: brightness(1.1) saturate(1.2);
+}
+
+#result-image[src*="cantwalk"] {
+    filter: brightness(1.05);
+}
+
+#result-image[src*="suffering"] {
+    filter: grayscale(0.2) brightness(0.9);
+}
+
+/* Glow effects for result subtitle */
+#result-subtitle {
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    animation: subtitleGlow 2s ease infinite;
+}
+
+@keyframes subtitleGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    }
+}
+
+/* Result image container hover effect */
+.result-image-container:hover .result-image {
+    transform: scale(1.03);
+}
+
