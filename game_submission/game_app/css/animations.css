@@ -1,0 +1,526 @@
+/**
+ * animations.css - Advanced Animations & Dynamic Effects
+ * Makes the game more dynamic and visually appealing
+ */
+
+/* ========== ANIMATED BACKGROUND ========== */
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ========== FLOATING PARTICLES BACKGROUND ========== */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    animation: particleFloat 20s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes particleFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(10px, -10px) scale(1.05); }
+    50% { transform: translate(-10px, 10px) scale(0.95); }
+    75% { transform: translate(5px, 5px) scale(1.02); }
+}
+
+/* ========== MENU SCREEN ANIMATIONS ========== */
+.menu-container {
+    animation: floatIn 1s ease, float 3s ease-in-out infinite 1s;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 100px rgba(102, 126, 234, 0.3);
+}
+
+@keyframes floatIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.game-title {
+    animation: titlePulse 3s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+}
+
+@keyframes titlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* ========== ENHANCED BUTTON ANIMATIONS ========== */
+.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), 0 0 30px rgba(102, 126, 234, 0.4);
+}
+
+.btn:active {
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== CARD DYNAMIC ANIMATIONS ========== */
+.card {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 0 0 40px rgba(102, 126, 234, 0.3);
+    border-color: #667eea;
+}
+
+.card.selected {
+    animation: cardSelect 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 15px 50px rgba(76, 175, 80, 0.4), 0 0 50px rgba(76, 175, 80, 0.3);
+}
+
+@keyframes cardSelect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1) rotate(2deg); }
+    100% { transform: scale(1.02) rotate(0deg); }
+}
+
+.card.unaffordable {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* ========== PROGRESS BAR ANIMATIONS ========== */
+.progress-fill {
+    position: relative;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1), background 0.5s ease;
+    animation: progressPulse 2s ease-in-out infinite;
+}
+
+@keyframes progressPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%);
+    animation: progressShine 2s ease-in-out infinite;
+}
+
+@keyframes progressShine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+}
+
+/* ========== HUD DYNAMIC EFFECTS ========== */
+.hud {
+    animation: slideDown 0.6s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 40px rgba(102, 126, 234, 0.2);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-icon {
+    animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* ========== CARDS CONTAINER ANIMATION ========== */
+.cards-container {
+    animation: fadeInUp 0.8s ease 0.2s both;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 40px rgba(102, 126, 234, 0.15);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cards-hand {
+    animation: cardsAppear 0.6s ease 0.4s both;
+}
+
+@keyframes cardsAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ========== ACTION SECTION ANIMATION ========== */
+.action-section {
+    animation: slideUp 0.6s ease 0.4s both;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 40px rgba(102, 126, 234, 0.2);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== MODAL ENHANCED ANIMATIONS ========== */
+.modal.active {
+    animation: modalFadeIn 0.4s ease;
+}
+
+.modal.active .modal-content {
+    animation: modalBounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(5px);
+    }
+}
+
+@keyframes modalBounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(100px);
+    }
+    50% {
+        transform: scale(1.05) translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ========== RESULT SCREEN ANIMATIONS ========== */
+.result-container {
+    animation: resultAppear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 100px rgba(102, 126, 234, 0.3);
+}
+
+@keyframes resultAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) rotate(-5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.result-image-container {
+    animation: imageReveal 1s ease 0.3s both;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes imageReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.8) rotateY(90deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotateY(0deg);
+    }
+}
+
+.result-image {
+    animation: imagePulse 3s ease-in-out infinite;
+}
+
+@keyframes imagePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* ========== ACHIEVEMENT & HIGH SCORE ANIMATIONS ========== */
+.achievements-section,
+.high-scores-section {
+    animation: sectionSlideIn 0.6s ease both;
+    transition: transform 0.3s ease;
+}
+
+.achievements-section {
+    animation-delay: 0.4s;
+}
+
+.high-scores-section {
+    animation-delay: 0.5s;
+}
+
+@keyframes sectionSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.achievements-section:hover,
+.high-scores-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.achievement-item,
+.high-score-item {
+    animation: itemPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    transition: all 0.3s ease;
+}
+
+.achievement-item:hover,
+.high-score-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes itemPopIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Stagger animation for items */
+.achievement-item:nth-child(1) { animation-delay: 0.6s; }
+.achievement-item:nth-child(2) { animation-delay: 0.7s; }
+.achievement-item:nth-child(3) { animation-delay: 0.8s; }
+.achievement-item:nth-child(4) { animation-delay: 0.9s; }
+.achievement-item:nth-child(5) { animation-delay: 1s; }
+
+.high-score-item:nth-child(1) { animation-delay: 0.6s; }
+.high-score-item:nth-child(2) { animation-delay: 0.7s; }
+.high-score-item:nth-child(3) { animation-delay: 0.8s; }
+.high-score-item:nth-child(4) { animation-delay: 0.9s; }
+.high-score-item:nth-child(5) { animation-delay: 1s; }
+
+/* ========== GLOW EFFECTS ========== */
+.result-header h2.win {
+    animation: winGlow 2s ease-in-out infinite;
+}
+
+@keyframes winGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(76, 175, 80, 0.5),
+                     0 0 20px rgba(76, 175, 80, 0.3),
+                     0 0 30px rgba(76, 175, 80, 0.2);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(76, 175, 80, 0.8),
+                     0 0 40px rgba(76, 175, 80, 0.5),
+                     0 0 60px rgba(76, 175, 80, 0.3);
+    }
+}
+
+.result-header h2.lose {
+    animation: loseGlow 2s ease-in-out infinite;
+}
+
+@keyframes loseGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(244, 67, 54, 0.5),
+                     0 0 20px rgba(244, 67, 54, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(244, 67, 54, 0.8),
+                     0 0 40px rgba(244, 67, 54, 0.5);
+    }
+}
+
+/* ========== STAT VALUE ANIMATIONS ========== */
+.stat-value,
+.stat-value-large {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Add pulse animation when values change */
+@keyframes valuePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* ========== TURN NUMBER SPECIAL ANIMATION ========== */
+#turn-number {
+    animation: turnFlip 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes turnFlip {
+    0% {
+        transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(90deg);
+    }
+    100% {
+        transform: rotateY(0deg);
+    }
+}
+
+/* ========== LOADING ANIMATION ========== */
+.btn:disabled {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:disabled::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%);
+    animation: buttonLoading 1.5s ease infinite;
+}
+
+@keyframes buttonLoading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ========== INFO CONTAINER ANIMATION ========== */
+.info-container {
+    animation: infoSlideIn 0.6s ease;
+}
+
+@keyframes infoSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px) rotate(-5deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) rotate(0deg);
+    }
+}
+
+/* ========== RESPONSIVE ANIMATIONS ========== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
